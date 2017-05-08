@@ -57,14 +57,17 @@ app.post('/send/webpush', (req, res) => {
   console.log(message);
   console.log(options);
 
-  webpush.sendNotification(pushSubscription, message, options).then((result)=>{
+  webpush.sendNotification(pushSubscription, message, options).then((response)=>{
     return res.json({
-      statusCode: result.statusCode || -1,
-      message: result.message || '',
+      statusCode: response.statusCode || -1,
+      message: response.message || '',
     });
   }).catch((error) => {
     console.log(error);
-    return res.json({});
+    return res.json({
+      statusCode: error.statusCode || -1,
+      message: error.message || '',
+    });
   });
 
 });
