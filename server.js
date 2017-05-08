@@ -28,7 +28,7 @@ app.get('/getpush', (req, res) => {
   });
 });
 
-app.get('/send/webpush', (req, res) => {
+app.post('/send/webpush', (req, res) => {
 
   var pushSubscription = {
       endpoint: req.body.endpoint,
@@ -37,12 +37,12 @@ app.get('/send/webpush', (req, res) => {
           auth: req.body.auth
       }
   };
-  var message = {
+  var message = JSON.stringify({
     title: req.body.title,
     body: req.body.body,
     icon: req.body.icon,
     link: req.body.link,
-  };
+  });
 
   var options = {
     TTL: 10000,
@@ -54,9 +54,10 @@ app.get('/send/webpush', (req, res) => {
   }
 
   console.log(pushSubscription);
+  console.log(message);
   console.log(options);
 
-  webpush.sendNotification(pushSubscription, JSON.stringify(message), options).then((result)=>{
+  webpush.sendNotification(pushSubscription, message, options).then((result)=>{
     return res.json({
       statusCode: result.statusCode || -1,
       message: result.message || '',

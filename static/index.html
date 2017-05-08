@@ -7,12 +7,29 @@
 
   <body>
     <form action="/send/webpush" method="POST">
-      <input type="text" value="ここにPushのメッセージを記載">
-      <input type="text" value="ここにPushのタイトルを記載">
-      <input type="text" value="ここにPushで表示する画像のURLを記載">
-      <input type="text" value="ここにPushをクリックした際に遷移するURLを記載">
-      <input type="submit" value="WebPush送信">
+      <ul>
+        <li>
+          <input type="text" name="body" value="メッセージを記載">
+        </li>
+        <li>
+          <input type="text" name="title" value="タイトルを記載">
+        </li>
+        <li>
+          <input type="text" name="icon" value="http://localhost:3000/">
+        </li>
+        <li>
+          <input type="text" name="link" value="http://localhost:3000/">
+        </li>
+        <li>
+          <input id="js-input-endpoint" type="hidden" name="endpoint" value="">
+          <input id="js-input-auth" type="hidden" name="auth" value="">
+          <input id="js-input-p256dh" type="hidden" name="p256dh" value="">
+          <input type="submit" value="WebPush送信">
+        </li>
+      </ul>
     </form>
+
+    <button id="js-btn-unsubscribe">Push通知解除</button>
 
     <script>
       /**
@@ -30,6 +47,10 @@
         }
         return outputArray;
       }
+
+      function urlUnit8ArrayToBase64URL(unit) {
+        return btoa(String.fromCharCode.apply(null, unit)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      };
 
       /**
        * serviceWorkerからSubscriptionを取得する
@@ -81,19 +102,34 @@
       window.addEventListener('load', async () => {
         navigator.serviceWorker.register('./serviceworker.js');
         var sub = await getsubscription();
-        if (sub) {
-          new Notification('WebPushの設定済みです。');
-        } else {
+        if (!sub) {
           // ブラウザに通知許可を要求する
           var permission = await Notification.requestPermission();
           new Notification('WebPushの設定をしました');
           if (permission === 'denied') {
-            alert('ブラウザの通知設定をONにしてください');
+            return alert('ブラウザの通知設定をONにしてください');
           } else {
-            initSubscribe();
+            sub = await initSubscribe();
           }
         }
+
+        // DOMにsubscribeした内容をセットする
+        console.log(sub);
+        document.getElementById('js-input-endpoint').value = sub.endpoint;
+        document.getElementById('js-input-auth').value     = urlUnit8ArrayToBase64URL(new Uint8Array(sub.getKey('auth')));
+        document.getElementById('js-input-p256dh').value   = urlUnit8ArrayToBase64URL(new Uint8Array(sub.getKey('p256dh')));
+
+        document.getElementById('js-btn-unsubscribe').addEventListener('click', async (e) => {
+          var sub = await getsubscription();
+          if (sub) {
+            sub.unsubscribe();
+            alert('通知設定を解除しました');
+          }
+          e.target.disabled = true
+        });
+
       });
+
 
     </script>
   </body>
