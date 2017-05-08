@@ -1,0 +1,24 @@
+{
+  "name": "webpush",
+  "version": "1.0.0",
+  "description": "FCMを利用したWebPushをnodejsを用いて実装したサンプルプロジェクト",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megadreams14/FCMWebPush.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/megadreams14/FCMWebPush/issues"
+  },
+  "homepage": "https://github.com/megadreams14/FCMWebPush#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "web-push": "^3.2.2"
+  }
+}
