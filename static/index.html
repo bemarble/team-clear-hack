@@ -3,22 +3,34 @@
   <head>
     <meta charset="UTF-8">
     <title>FCMによるWebPushのテスト</title>
+    <style>
+      input {
+        width: 500px;
+      }
+    </style>
   </head>
-
   <body>
     <form action="/send/webpush" method="POST">
       <ul>
         <li>
-          <input type="text" name="title" value="タイトルを記載">
+          <label>
+            タイトル：<input type="text" name="title" value="タイトルを記載">
+          </label>
         </li>
         <li>
-          <input type="text" name="body" value="メッセージを記載">
+          <label>
+            本　　文：<input type="text" name="body" value="メッセージを記載">
+          </label>
         </li>
         <li>
-          <input type="text" name="icon" value="http://localhost:3000/">
+          <label>
+            アイコン：<input type="text" name="icon" value="https://avatars0.githubusercontent.com/u/2429784?v=3&s=460">
+          </label>
         </li>
         <li>
-          <input type="text" name="link" value="http://localhost:3000/">
+          <label>
+            遷 移 先：<input type="text" name="link" value="https://github.com/megadreams14/FCMWebPush">
+          </label>
         </li>
         <li>
           <input id="js-input-endpoint" type="hidden" name="endpoint" value="">
