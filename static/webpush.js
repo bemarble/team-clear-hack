@@ -14,8 +14,11 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
-function urlUnit8ArrayToBase64URL(unit) {
-  return btoa(String.fromCharCode.apply(null, unit)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+/**
+ * unit8ArrayのバイナリデータをBase64URLに変換する
+ */
+function urlUnit8ArrayToBase64URL(unit8Array) {
+  return btoa(String.fromCharCode.apply(null, unit8Array)).replace(/=+$/, '').replace(/\//g, '_').replace(/\+/g, '-');
 };
 
 /**
