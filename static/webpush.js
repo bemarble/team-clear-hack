@@ -15,11 +15,14 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 /**
- * unit8ArrayのバイナリデータをBase64URLに変換する
+ * ArrayBuffer型のパラメータをUint8Array型に変換し
+ * Base64 URLエンコードによって文字列に変換した値を返す
+ *    参考: http://qiita.com/tomoyukilabs/items/217915676603fda73b0a
  */
-function urlUnit8ArrayToBase64URL(unit8Array) {
-  return btoa(String.fromCharCode.apply(null, unit8Array)).replace(/=+$/, '').replace(/\//g, '_').replace(/\+/g, '-');
-};
+function arrayBufferToBase64URL(arrayBuffer) {
+  return btoa(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer))).replace(/\+/g, '-').replace(/\//g, '_');
+}
+
 
 /**
  * serviceWorkerからSubscriptionを取得する
@@ -64,6 +67,10 @@ async function initSubscribe() {
   return await subscribe(option);
 }
 
+
+
+
+
 /**
  * ページの読み込みが完了すれば、
  * WebPushを受け取るための準備を行う
@@ -85,8 +92,9 @@ window.addEventListener('load', async () => {
   // DOMにsubscribeした内容をセットする
   console.log(sub);
   document.getElementById('js-input-endpoint').value = sub.endpoint;
-  document.getElementById('js-input-auth').value     = urlUnit8ArrayToBase64URL(new Uint8Array(sub.getKey('auth')));
-  document.getElementById('js-input-p256dh').value   = urlUnit8ArrayToBase64URL(new Uint8Array(sub.getKey('p256dh')));
+  document.getElementById('js-input-auth').value     = arrayBufferToBase64URL(sub.getKey('auth'));
+  document.getElementById('js-input-p256dh').value   = arrayBufferToBase64URL(sub.getKey('p256dh'));
+
 
   document.getElementById('js-btn-unsubscribe').addEventListener('click', async (e) => {
     var sub = await getsubscription();
