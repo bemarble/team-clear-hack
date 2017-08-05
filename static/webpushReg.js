@@ -81,17 +81,7 @@ window.addEventListener('load', async () => {
   if (!sub) {
     // ブラウザに通知許可を要求する
     var permission = await Notification.requestPermission();
-    //new Notification('WebPushの設定をしました');
-    if (permission === 'granted') {
-      navigator.serviceWorker.ready.then(function(registration) {
-        registration.showNotification('WebPushの設定をしました', {
-          body: 'WebPushの設定をしました',
-          icon: 'https://lh4.googleusercontent.com/1HPkuhh4wU-DSBWKmSjLQyFWdmGLo-6mhyk86WR1p22jTzKCgweDsIqa4T7-aiotCiakM1L3fwtd4FUOTaQ-9e_2KoFB8W20tpij=w2584-h1380',
-          vibrate: [200, 100, 200, 100, 200, 100, 200],
-          tag: 'vibration-sample'
-        });
-      });
-    }
+    new Notification('WebPushの設定をしました');
     if (permission === 'denied') {
       return alert('ブラウザの通知設定をONにしてください');
     } else {
@@ -104,6 +94,7 @@ window.addEventListener('load', async () => {
   document.getElementById('js-input-endpoint').value = sub.endpoint;
   document.getElementById('js-input-auth').value     = arrayBufferToBase64URL(sub.getKey('auth'));
   document.getElementById('js-input-p256dh').value   = arrayBufferToBase64URL(sub.getKey('p256dh'));
+
 
   document.getElementById('js-btn-unsubscribe').addEventListener('click', async (e) => {
     var sub = await getsubscription();

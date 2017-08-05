@@ -29,25 +29,26 @@ app.get('/getpush', (req, res) => {
 });
 
 app.post('/send/webpush', (req, res) => {
-
   var pushSubscription = {
       endpoint: req.body.endpoint,
       keys: {
-          p256dh: req.body.p256dh,
-          auth: req.body.auth
+        p256dh: req.body.p256dh,
+        auth: req.body.auth
       }
   };
-  var message = JSON.stringify({
-    title: req.body.title,
-    body: req.body.body,
-    icon: req.body.icon,
-    link: req.body.link,
-  });
+
+  var obj = {
+    title: 'ミラタンからのお知らせ！',
+    body: '蜃気楼出たよー！見に来てね！！ 座標:' + req.body['lat-lng'],
+    icon: 'https://lh4.googleusercontent.com/1HPkuhh4wU-DSBWKmSjLQyFWdmGLo-6mhyk86WR1p22jTzKCgweDsIqa4T7-aiotCiakM1L3fwtd4FUOTaQ-9e_2KoFB8W20tpij=w2584-h1380',
+    link: 'http://www.city.uozu.toyama.jp/guide/svGuideDtl.aspx?servno=4192'
+  }
+  var message = JSON.stringify(obj);
 
   var options = {
     TTL: 10000,
     vapidDetails: {
-      subject: req.body.link,
+      subject: obj.link,
       publicKey: vapidKeys.publicKey,
       privateKey: vapidKeys.privateKey
     }
@@ -71,6 +72,3 @@ app.post('/send/webpush', (req, res) => {
   });
 
 });
-
-
-

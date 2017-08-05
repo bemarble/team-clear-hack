@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>しんきろうお知らせ</title>
+    <style>
+      input {
+        width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/send/webpush" method="POST">
+      <input id="js-input-endpoint" type="hidden" name="endpoint" value="">
+      <input id="js-input-auth" type="hidden" name="auth" value="">
+      <input id="js-input-p256dh" type="hidden" name="p256dh" value="">
+    </form>
+    <button id="js-btn-unsubscribe">通知解除</button>
+    <script src="./webpush.js"></script>
+  </body>
+</html>
