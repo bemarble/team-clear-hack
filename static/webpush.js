@@ -67,10 +67,6 @@ async function initSubscribe() {
   return await subscribe(option);
 }
 
-
-
-
-
 /**
  * ページの読み込みが完了すれば、
  * WebPushを受け取るための準備を行う
