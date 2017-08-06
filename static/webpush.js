@@ -77,8 +77,8 @@ window.addEventListener('load', async () => {
   if (!sub) {
     // ブラウザに通知許可を要求する
     var permission = await Notification.requestPermission();
-    //new Notification('WebPushの設定をしました');
     if (permission === 'granted') {
+      /*
       navigator.serviceWorker.ready.then(function(registration) {
         registration.showNotification('受信の設定をしました', {
           body: '受信の設定をしました',
@@ -87,6 +87,7 @@ window.addEventListener('load', async () => {
           tag: 'vibration-sample'
         });
       });
+      */
     }
     if (permission === 'denied') {
       return alert('ブラウザの通知設定をONにしてください');

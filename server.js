@@ -117,10 +117,18 @@ app.post('/send/webpush', (req, res) => {
             auth: req.body.auth
           }
         }
-        collection.insertOne(insert_params, (error, result) => {
-          console.log("insert!!")
-          //db.close();
-        });
+
+        if (req.body.endpoint != "") {
+          collection.insertOne(insert_params, (error, result) => {
+            console.log("insert!!")
+            //db.close();
+          });
+        } else {
+          res.json({
+            "error": "param error"
+          })
+        }
+
       }
     });
   }
@@ -156,7 +164,7 @@ app.post('/send/webpush', (req, res) => {
             }
           }
 
-          console.log("bbbbb", pushSubscriptionParam);
+          console.log("bbbbb", pushSubscriptionParam, pushSubscription);
           webpush.sendNotification(pushSubscription, message, options).then((response)=>{
             console.log("success:", response);
           }).catch((error) => {
