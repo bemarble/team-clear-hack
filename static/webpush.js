@@ -84,8 +84,8 @@ window.addEventListener('load', async () => {
     //new Notification('WebPushの設定をしました');
     if (permission === 'granted') {
       navigator.serviceWorker.ready.then(function(registration) {
-        registration.showNotification('WebPushの設定をしました', {
-          body: 'WebPushの設定をしました',
+        registration.showNotification('受信の設定をしました', {
+          body: '受信の設定をしました',
           icon: 'https://lh4.googleusercontent.com/1HPkuhh4wU-DSBWKmSjLQyFWdmGLo-6mhyk86WR1p22jTzKCgweDsIqa4T7-aiotCiakM1L3fwtd4FUOTaQ-9e_2KoFB8W20tpij=w2584-h1380',
           vibrate: [200, 100, 200, 100, 200, 100, 200],
           tag: 'vibration-sample'
