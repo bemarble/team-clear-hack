@@ -91,7 +91,8 @@
               document.getElementById('lat').value = mapLatLng.lat();
               document.getElementById('lng').value = mapLatLng.lng();
 
-              $('#push-mirage').show();
+              document.getElementById('push-mirage').style = "display:block";
+              //$('#push-mirage').show();
               // マップオプションを変数に格納
               var mapOptions = {
                 zoom : 20,          // 拡大倍率
@@ -136,9 +137,8 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF_uFU96hVutLd9BgBWYZqi89qqwuofyc&callback=initMap"></script>
     <script src="./webpush.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-      crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
 
   </body>
 </html>
